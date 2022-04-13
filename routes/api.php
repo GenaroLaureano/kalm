@@ -78,6 +78,20 @@ Route::get('/users/{user}', function (User $user) {
     return $user;
 });
 
+Route::post('/users/profilePicture/{user}', function (User $user, Request $request) {
+
+    if($request->profilePicture) {
+        $path = $request->profilePicture->store('public/profilePictures');
+        $user->profilePicture = $path;
+        $user->update([
+            'profilePicture' => $path
+        ]);
+        return response()->json($user, 200);
+    }
+
+    return response()->json('Hubo un error', 500);
+});
+
 
 Route::get('/templates', function () {
     $postModel = new Post();
@@ -255,3 +269,4 @@ Route::post('/posts', function (Request $request) {
 
     return response()->json($post, 201);
 });
+
