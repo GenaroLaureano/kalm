@@ -80,8 +80,8 @@ Route::get('/users/{user}', function (User $user) {
 
 Route::post('/users/profilePicture/{user}', function (User $user, Request $request) {
 
-    if($request->profilePicture) {
-        $path = $request->profilePicture->store('public/profilePictures');
+    if($request->file) {
+        $path = $request->file->store('public/profilePictures');
         $user->profilePicture = $path;
         $user->update([
             'profilePicture' => $path
