@@ -24,7 +24,9 @@ class User extends Authenticatable
         'state',
         'municipality',
         'phone',
-        'profilePicture'
+        'profilePicture',
+        'age',
+        'sex',
     ];
 
     /**

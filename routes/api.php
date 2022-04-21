@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Number;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -35,6 +36,9 @@ Route::post('/users', function (Request $request) {
         'municipality' => $request->municipality,
         'phone' => $request->phone,
         'profilePicture' => $request->profilePicture,
+        'age' => $request->profilePicture,
+        'sex' => $request->profilePicture,
+
     ]);
 
     return response()->json($user, 201);
@@ -53,7 +57,6 @@ Route::put('/users/{user}', function (User $user, Request $request) {
     ]);
 
     return response()->json($user, 200);
-
 });
 
 Route::delete('/users/{user}', function (User $user) {
@@ -67,6 +70,19 @@ Route::delete('/users/{user}', function (User $user) {
 
 Route::get('/users/{user}', function (User $user) {
     return $user;
+});
+
+Route::get('/numbers/{number}', function (Number $number, Request $request) {
+    return Number::where('id', $number->id)->get();
+});
+
+Route::post('/numbers', function (Request $request) {
+    $number = Number::create([
+        'name' => $request->name,
+        'number' => $request->number,
+        'user_id' => $request->user_id,
+    ]);
+    return response()->json($number, 201);
 });
 
 Route::get('/templates', function () {
